@@ -21,6 +21,8 @@ import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
 public class Practice01Translation extends RelativeLayout {
     Button animateBt;
     ImageView imageView;
+    int count = SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 6 : 4;
+    int currentCount = 0;
 
     public Practice01Translation(Context context) {
         super(context);
@@ -49,6 +51,37 @@ public class Practice01Translation extends RelativeLayout {
             @Override
             public void onClick(final View v) {
                 // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                switch (currentCount) {
+                    case 0:
+//                        imageView.setX(dpToPixel(100));
+                        imageView.setTranslationX(dpToPixel(100));
+                        break;
+                    case 1:
+                        imageView.animate().translationX(dpToPixel(0));
+                        break;
+                    case 2:
+                        imageView.animate().translationY(dpToPixel(50));
+                        break;
+                    case 3:
+                        imageView.animate().translationY(dpToPixel(0));
+                        break;
+                    case 4:
+                        if (SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            imageView.animate().translationZ(dpToPixel(20));
+                        }
+                        break;
+                    case 5:
+                        if (SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            imageView.animate().translationZ(dpToPixel(0));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                currentCount++;
+                if (currentCount==count){
+                    currentCount = 0;
+                }
             }
         });
     }
